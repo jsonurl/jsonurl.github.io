@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+  	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON-&gt;URL</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css">
+
+    <style>
+    /*
+     * header and nav
+     */
+    header {
+      text-align: center;
+    }
+    nav ul {
+	    padding: 0;
+	    list-style-type: none;
+    }
+    nav ul li:first-child {
+      padding-left: 0;
+    }
+    nav ul li {
+	    display: inline;
+	    padding-left: 1ch;
+	    white-space: nowrap;
+    }
+    
+    /*
+     * sections
+     */
+    section {
+      padding: 0.5em;
+    }
+    section h2 a:hover:after  {
+      font-size: 75%;
+      content: "\0000A7";
+    }
+    a[name] {
+      text-decoration: none; 
+      color: inherit; 
+    }
+    li {
+      margin: 0 0 6px 0;
+    }
+
+    /*
+     * mobile and small screen
+     */
+    @media (max-width: 35rem) {
+	    html, body {
+        padding: 0;
+	      height: 100%;
+	      box-sizing: border-box;
+	    }
+	    body {
+	      margin: 0;
+	    }
+	    section:nth-of-type(1) {
+	      background: #fcfcf2;
+	    }
+	    section:nth-of-type(3) {
+	      background: #fcf7f2;
+	    }
+    }
+    </style>
+  </head>
+  <body>
+  <header>
+    <h1><a href="/" name="top">JSON&#x2192;URL</a></h1>
+    <nav role="navigation">
+	    <ul>
+	      <li><a href="#about">About</a></li>
+	      <li><a href="#code">Code</a></li>
+	      <li><a href="#sandbox">Playground</a></li>
+	      <li><a href="#details">Details</a></li>
+	    </ul>
+    </nav>
+  </header>
+	<main>
+		<section>
+		<h2><a name="about" href="#about">About</a></h2>
+		<p><a href="https://tools.ietf.org/html/rfc8259">RFC8259</a> describes the
+		JSON data model and interchange format, which is
+		widely used in
+		<a href="https://en.wikipedia.org/wiki/Application_layer">application-level</a>
+		protocols including
+		<a href="https://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a>
+		<a href="https://en.wikipedia.org/wiki/Web_API">API</a>s. It is
+		common for applications to request resources via the
+		<a href="https://en.wikipedia.org/wiki/POST_(HTTP)">HTTP POST</a> method,
+		with JSON
+		<a href="https://tools.ietf.org/html/rfc2068#section-7">entities</a>.
+		However, POST is suboptimal for requests which do not modify a 
+		<a href="https://tools.ietf.org/html/rfc7231#section-2">resource</a>'s
+		state. JSON&#x2192;URL defines a text format for the JSON
+		data model suitable for use within a
+		<a href="https://tools.ietf.org/html/rfc1738">URL</a>/<a
+		href="https://tools.ietf.org/html/rfc3986">URI</a>.
+		</section>
+	
+    <section>
+    <h2><a name="code" href="#code">Code</a></h2>
+    <p>The following class/function libraries are available.
+    <ul>
+    <li>jsonurl-java - Java implementation
+    (<a href="https://github.com/jsonurl/jsonurl-java">GitHub</a>,
+    <a href="https://mvnrepository.com/artifact/org.jsonurl">Maven</a>)
+    <li>jsonurl-js - JavaScript implementation
+    (<a href="https://github.com/jsonurl/jsonurl-js">GitHub</a>,
+    <a href="https://www.npmjs.com/package/@jsonurl/jsonurl">NPM</a>)
+    </ul>
+    </section>
+
+    <section id="sandbox">
+		  <noscript>
+          <h2><a name="examples" href="#examples">Examples</a></h2>
+          <table>
+            <caption>A picture is worth 1e3 words</caption>
+            <thead><tr><th>JSON</th><th>JSON&#x2192;URL</th></tr></thead>
+            <tbody>
+              <tr><td>true</td><td>true</td></tr>
+              <tr><td>false</td><td>false</td></tr>
+              <tr><td>null</td><td>null</td></tr>
+              <tr><td>{"Hello":"World!"}</td><td>(Hello:World!)</td></tr>
+              <tr><td>[1,2.0,-3e7]</td><td>(1,2.0,-3e7)</td></tr>
+              <tr><td>{"key":"value","nested":["array","of","strings"]}</td>
+                <td>(key:value,nested:(array,of,strings))</td></tr>
+              <tr><td>"Ben & Jerry's"</td><td>Ben+%26+Jerry's</td></tr>
+              <tr><td>"true"</td><td>'true'</td></tr>
+            </tbody>
+          </table>
+      </noscript>
+    </section>
+
+    <section>
+      <h2><a name="details" href="#details">Details</a></h2>
+      <p>The primary goal of JSON&#x2192;URL is to make the resulting
+      URL readable &mdash; or at least as readable as possible &mdash; and
+      therefore meaningful to the user.
+      <p>The spec outlines the complete format, which includes a number of
+      optimizations to increase readability and decrease size, but the basic
+      concept can be understood by applying the following rules to
+      JSON text.
+
+      <ul>
+
+      <li>JSON&#x2192;URL text is limited to a subset of the characters allowed
+      in a URL
+      <a href="https://tools.ietf.org/html/rfc3986#section-3.4">query string</a>.
+      All other characers must be
+      <a href="https://en.wikipedia.org/wiki/Percent-encoding">percent encoded</a>.
+
+      <li>The <code>[</code>, <code>]</code>, <code>{</code>, and
+      <code>}</code> characters are not allowed in a URL query string so
+      objects and arrays both begin with <code>(</code> and end with
+      <code>)</code>.
+
+      <li>The <kbd>true</kbd>, <kbd>false</kbd>, <kbd>null</kbd>, and number
+      literals look exactly like they do in JSON.
+
+      <li>A string literal is quoted between two <code>'</code> characters,
+      because <code>"</code> is not allowed in a URL query string. A string only
+      needs to be quoted if it is <kbd>true</kbd>, <kbd>false</kbd>,
+      <kbd>null</kbd>, or looks like a number.
+
+      <li>Literal whitespace is not allowed in a URL query string. A single
+      space may be encoded with a <code>+</code> character. Spaces may only
+      appear where a string literal is allowed, and they are always meaningful.
+      
+      </ul> 
+    </section>
+    </main>
+		<script
+      src="https://cdn.jsdelivr.net/npm/@jsonurl/jsonurl@1.0.0/dist/jsonurl.min.js"
+      integrity="sha384-8tLcpqfENLTqlnqIfsn3sokUQIe6vEu3kx2Sw1D+VKKCwnzPy2C2n837+blkJG8F"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/vue"
+      integrity="sha384-OZmxTjkv7EQo5XDMPAmIkkvywVeXw59YyYh6zq8UKfkbor13jS+5p8qMTBSA1q+F"
+      crossorigin="anonymous"></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/lodash"
+        integrity="sha384-9STIK/s/5av47VsUK9w+PMhEpgZTkKW+wvmRSjU+Lx9DSrl5RdjHeOLhyNhuoYtY"
+        crossorigin="anonymous"></script>
+		<script src="sandbox.js"></script>
+  </body>
+</html>
