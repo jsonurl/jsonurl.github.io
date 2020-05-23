@@ -73,7 +73,8 @@
 	      <li><a href="#about">About</a></li>
 	      <li><a href="#code">Code</a></li>
 	      <li><a href="#sandbox">Playground</a></li>
-	      <li><a href="#details">Details</a></li>
+        <li><a href="#details">Details</a></li>
+        <li><a href="#relatedwork">Related Work</a></li>
 	    </ul>
     </nav>
   </header>
@@ -96,19 +97,22 @@
 		state. JSON&#x2192;URL defines a text format for the JSON
 		data model suitable for use within a
 		<a href="https://tools.ietf.org/html/rfc1738">URL</a>/<a
-		href="https://tools.ietf.org/html/rfc3986">URI</a>.
+    href="https://tools.ietf.org/html/rfc3986">URI</a>.</p>
 		</section>
 	
     <section>
     <h2><a name="code" href="#code">Code</a></h2>
-    <p>The following class/function libraries are available.
+    <p>JSON&#x2192;URL is language agnostic. A formal specification defines
+      the grammar, and class/function libraries implement an idiomatic
+      interface.
     <ul>
     <li>jsonurl-java - Java implementation
     (<a href="https://github.com/jsonurl/jsonurl-java">GitHub</a>,
     <a href="https://mvnrepository.com/artifact/org.jsonurl">Maven</a>)
     <li>jsonurl-js - JavaScript implementation
     (<a href="https://github.com/jsonurl/jsonurl-js">GitHub</a>,
-    <a href="https://www.npmjs.com/package/@jsonurl/jsonurl">NPM</a>)
+    <a href="https://www.npmjs.com/package/@jsonurl/jsonurl">NPM</a>,
+    <a href="https://libraries.io/npm/@jsonurl%2Fjsonurl">libraries.io</a>)
     </ul>
     </section>
 
@@ -169,6 +173,33 @@
       appear where a string literal is allowed, and they are always meaningful.
       
       </ul> 
+    </section>
+
+    <section>
+      <h2><a name="relatedwork" href="#relatedwork">Related Work</a></h2>
+      <p>The following libraries (written by others) provide similar or related functionality.
+        <dl>
+          <dt><a href="https://github.com/Sage/jsurl">jsurl</a></dt>
+          <dd>A JavaScript library similar in goal to JSON&#x2192;URL. It
+            uses tilde as an escape sequence for literals and to
+            differentiate between open object and open array.</dd>
+
+          <dt><a href="https://www.npmjs.com/package/json-url">json-url</a></dt>
+          <dd>A JavaScript library to serialize/deserialize arbitrary JSON text
+            to/from a clob suitable for use in a URL query string. The primary
+            goal is to optimize for size rather than readability. It offers
+            several compression options and looks quite complete.</dd>
+
+          <dt><a href="https://github.com/TimoBechtel/json2url#readme">json2url</a></dt>
+          <dd>A JavaScript library for encoding and decoding JavaScript objects to/from a URL
+            compatible string. The format appears to be compatible with classic
+            <abbr>CGI</abbr> query strings (i.e. x-www-form-unlencoded).</dd>
+
+          <dt><a href="https://github.com/CottageLabs/jsonurl#readme">jsonurl</a></dt>
+          <dd>A Python library for serializing and deserializing Python data structures
+            to/from a URL query string.</dd>
+        </dl>
+        
     </section>
     </main>
 		<script
