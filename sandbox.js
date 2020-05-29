@@ -27,6 +27,20 @@ const INITIAL_VALUE = { Hello: "World!" };
 const SYNTAX_OK = "Syntax OK!";
 
 //
+// Update link text
+//
+(function() {
+  const links = document.getElementsByClassName("sandbox-link");
+  for(var i = 0; i < links.length; i++) {
+    var link = links[i];
+    if (link.hasAttribute("href")) {
+      link.setAttribute("href","#sandbox");
+      link.innerHTML = "Playground";
+    }
+  }
+})();
+
+//
 // dynamically inject CSS into <HEAD>
 //
 function addCSS(filename) {
