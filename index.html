@@ -42,7 +42,43 @@
 	    padding-left: 1ch;
 	    white-space: nowrap;
     }
-    
+
+    /*
+     * footer
+     */
+    footer {
+      margin-top: 2em;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas:
+        "hr hr "
+        "pp vote"
+    }
+    footer hr {
+      grid-area: hr;
+      width:100%;
+    }
+    footer a:hover {
+      text-decoration: none;
+    }
+    footer a {
+      grid-area: pp;
+    }
+    footer div {
+      grid-area: vote;
+      text-align: right;
+    }
+    footer div ul {
+      display: inline;
+	    list-style-type: none;
+      padding: 0;
+    }
+    footer div ul li {
+      display: inline;
+	    padding-left: 1ch;
+	    white-space: nowrap;
+    }
+
     /*
      * sections
      */
@@ -54,7 +90,7 @@
       content: "\0000A7";
     }
     a[name] {
-      text-decoration: none; 
+      text-decoration: none;
       color: inherit; 
     }
     li {
@@ -228,6 +264,16 @@
         </dl>
         
     </section>
+    <footer>
+      <hr>
+      <div>This webpage is good:
+        <ul>
+          <li><a href="/" data-goal="vote-landing-good">&#x1f44d;Yes</a>
+          <li><a href="/" data-goal="vote-landing-bad">&#x1f44e;No</a>
+        </ul>
+      </div>
+      <a href="privacy">Privacy Policy</a>
+    </footer>
     </main>
 		<script
       src="https://js.jsonurl.org/jsonurl.min.js"
