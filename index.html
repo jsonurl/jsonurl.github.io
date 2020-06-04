@@ -47,36 +47,37 @@
      * footer
      */
     footer {
+      font-size: smaller;
       margin-top: 2em;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: auto 1fr;
       grid-template-areas:
         "hr hr "
-        "pp vote"
+        "links vote"
     }
     footer hr {
       grid-area: hr;
       width:100%;
     }
-    footer a:hover {
-      text-decoration: none;
+
+    footer > span {
+      display: flex;
+      flex-direction: column;
     }
-    footer a {
-      grid-area: pp;
-    }
-    footer div {
+
+    footer > form {
       grid-area: vote;
       text-align: right;
     }
-    footer div ul {
+    footer > form > span:first-child {
       display: inline;
-	    list-style-type: none;
-      padding: 0;
+      padding-right: 0;
+      vertical-align: top;
     }
-    footer div ul li {
-      display: inline;
-	    padding-left: 1ch;
-	    white-space: nowrap;
+    footer > form > span {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      padding-right: 1rem;
     }
 
     /*
@@ -126,7 +127,8 @@
 	      <li><a href="#about">About</a></li>
 	      <li><a href="#code">Code</a></li>
 	      <li><a href="#examples" class="sandbox-link">Examples</a></li>
-        <li><a href="#details">Details</a></li>
+        <li><a href="#basics">Basics</a></li>
+        <li><a href="#spec">Specification</a></li>
         <li><a href="#relatedwork">Related Work</a></li>
 	    </ul>
     </nav>
@@ -180,28 +182,26 @@
       </section>
 
     <section id="sandbox">
-		  <noscript>
-          <h2><a name="examples" href="#examples">Examples</a></h2>
-          <table>
-            <caption>A picture is worth 1e3 words</caption>
-            <thead><tr><th>JSON</th><th>JSON&#x2192;URL</th></tr></thead>
-            <tbody>
-              <tr><td>true</td><td>true</td></tr>
-              <tr><td>false</td><td>false</td></tr>
-              <tr><td>null</td><td>null</td></tr>
-              <tr><td>{"Hello":"World!"}</td><td>(Hello:World!)</td></tr>
-              <tr><td>[1,2.0,-3e7]</td><td>(1,2.0,-3e7)</td></tr>
-              <tr><td>{"key":"value","nested":["array","of","strings"]}</td>
-                <td>(key:value,nested:(array,of,strings))</td></tr>
-              <tr><td>"Ben & Jerry's"</td><td>Ben+%26+Jerry's</td></tr>
-              <tr><td>"true"</td><td>'true'</td></tr>
-            </tbody>
-          </table>
-      </noscript>
+      <h2><a name="examples" href="#examples">Examples</a></h2>
+      <table>
+        <caption>A picture is worth 1e3 words</caption>
+        <thead><tr><th>JSON</th><th>JSON&#x2192;URL</th></tr></thead>
+        <tbody>
+          <tr><td>true</td><td>true</td></tr>
+          <tr><td>false</td><td>false</td></tr>
+          <tr><td>null</td><td>null</td></tr>
+          <tr><td>{"Hello":"World!"}</td><td>(Hello:World!)</td></tr>
+          <tr><td>[1,2.0,-3e7]</td><td>(1,2.0,-3e7)</td></tr>
+          <tr><td>{"key":"value","nested":["array","of","strings"]}</td>
+            <td>(key:value,nested:(array,of,strings))</td></tr>
+          <tr><td>"Ben & Jerry's"</td><td>Ben+%26+Jerry's</td></tr>
+          <tr><td>"true"</td><td>'true'</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <section>
-      <h2><a name="details" href="#details">Details</a></h2>
+      <h2><a name="basics" href="#basics">Basic Rules</a></h2>
       <p>The primary goal of JSON&#x2192;URL is to make the resulting
       URL readable &mdash; or at least as readable as possible &mdash; and
       therefore meaningful to the user.
@@ -239,6 +239,12 @@
     </section>
 
     <section>
+      <h2><a name="spec" href="#spec">Specification</a></h2>
+      <p>The <a href="https://github.com/jsonurl/specification/">JSON&#x2192;URL
+        specification</a> defines the complete grammar.</p>
+    </section>
+
+    <section>
       <h2><a name="relatedwork" href="#relatedwork">Related Work</a></h2>
       <p>The following libraries (written by others) provide similar or related functionality.
         <dl>
@@ -262,21 +268,35 @@
           <dd>A Python library for serializing and deserializing Python data structures
             to/from a URL query string.</dd>
         </dl>
-        
     </section>
     <footer>
       <hr>
-      <div>This webpage is good:
-        <ul>
-          <li><a href="/" data-goal="vote-landing-good">&#x1f44d;Yes</a>
-          <li><a href="/" data-goal="vote-landing-bad">&#x1f44e;No</a>
-        </ul>
-      </div>
-      <a href="privacy">Privacy Policy</a>
+      <form id="vote" autocomplete="off" novalidate>
+        <span>This webpage is good:</span>
+        <span>
+          <input type="radio" name="vote" value="yes"
+            id="vote-landing-good"
+            data-goal="vote-landing-good"
+            data-thumb="&#x1f44d;">
+          <label for="vote-landing-good">Yes</label>
+        </span>
+        <span>
+          <input type="radio" name="vote" value="no"
+            id="vote-landing-bad"
+            data-goal="vote-landing-bad"
+            data-thumb="&#x1f44e;">
+          <label for="vote-landing-bad">No</label>
+        </span>
+      </form>
+      <span>
+        <a title="Privacy Policy" href="privacy">Privacy Policy</a>
+        <a title="GitHub" href="https://github.com/jsonurl">GitHub</a>
+      </span>
     </footer>
     </main>
-		<script
-      src="https://js.jsonurl.org/jsonurl.min.js"
+    <script
+      src="https://cdn.jsdelivr.net/npm/@jsonurl/jsonurl@1.0.0"
+      integrity="sha384-8tLcpqfENLTqlnqIfsn3sokUQIe6vEu3kx2Sw1D+VKKCwnzPy2C2n837+blkJG8F"
       crossorigin="anonymous"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/vue@2.6.11"
