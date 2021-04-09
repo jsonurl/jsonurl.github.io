@@ -205,8 +205,7 @@
       <p>The primary goal of JSON&#x2192;URL is to make the resulting
       URL readable &mdash; or at least as readable as possible &mdash; and
       therefore meaningful to the user.
-      <p>The spec outlines the complete format, which includes a number of
-      optimizations to increase readability and decrease size, but the basic
+      <p>The spec outlines the complete grammar, but the basic
       concept can be understood by applying the following rules to
       JSON text.
 
@@ -235,7 +234,16 @@
       space may be encoded with a <code>+</code> character. Spaces may only
       appear where a string literal is allowed, and they are always meaningful.
       
-      </ul> 
+      </ul>
+      
+      <h3><a name="aqf" href="#aqf">Browser Address Bar</a></h3>
+      <p>Special consideration should be taken when using JSON&#x2192;URL in
+      a browser address bar. Some browsers may change <code>'</code> to
+      <code>%x27</code>, which interferes with the string literal
+      syntax described above. To sidestep this problem JSON&#x2192;URL can
+      optionally use escape sequences in string literals, rather than relying
+      on quotes and encoding. An escape sequence begins with <code>!</code>,
+      because <code>\</code> is not allowed in a URL query string.</p>
     </section>
 
     <section>
