@@ -36,6 +36,7 @@ footer hr {
 }
 footer > span {
     display: flex;
+    grid-area: links;
     flex-direction: column;
 }
 footer > form {
